@@ -1,33 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter01_login/signup.dart';
-import 'package:flutter01_login/product_detail.dart';
+import 'package:flutter01_login/main.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(SignUp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+class SignUp extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(home: LogIn());
-  }
+  State<SignUp> createState() => _SignUpState();
 }
 
-class LogIn extends StatefulWidget {
-  @override
-  State<LogIn> createState() => _LogInState();
-}
-
-class _LogInState extends State<LogIn> {
+class _SignUpState extends State<SignUp> {
   bool _showPass = false;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         body: Container(
-          padding: EdgeInsets.fromLTRB(30, 0, 30, 30),
+          padding: EdgeInsets.fromLTRB(30, 30, 30, 30),
           constraints: BoxConstraints.expand(),
           color: Colors.transparent,
           child: Column(
@@ -35,11 +25,11 @@ class _LogInState extends State<LogIn> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 80),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
                 child: Center(
                   child: Container(
-                    width: 100,
-                    height: 100,
+                    width: 80,
+                    height: 80,
                     padding: EdgeInsets.all(0),
                     child: Image.asset(
                       'assets/login_logo.png',
@@ -50,7 +40,7 @@ class _LogInState extends State<LogIn> {
                 ),
               ),
               Text(
-                "Loging",
+                "Sign Up",
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Colors.black,
@@ -60,7 +50,7 @@ class _LogInState extends State<LogIn> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
                 child: Text(
-                  "Enter your emails and password",
+                  "Enter your credentials to continue",
                   style: TextStyle(
                     fontWeight: FontWeight.w200,
                     color: Colors.black,
@@ -69,7 +59,20 @@ class _LogInState extends State<LogIn> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+                child: TextField(
+                  style: TextStyle(fontSize: 19, color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Username",
+                    labelStyle: TextStyle(
+                      color: const Color.fromARGB(255, 175, 171, 171),
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
                 child: TextField(
                   style: TextStyle(fontSize: 19, color: Colors.black),
                   decoration: InputDecoration(
@@ -78,6 +81,7 @@ class _LogInState extends State<LogIn> {
                       color: const Color.fromARGB(255, 175, 171, 171),
                       fontSize: 20,
                     ),
+                    suffixIcon: Icon(Icons.check),
                   ),
                 ),
               ),
@@ -107,12 +111,32 @@ class _LogInState extends State<LogIn> {
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
                 child: Align(
                   alignment: Alignment.centerRight,
-                  child: Text(
-                    "Forgot Password?",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black,
-                      fontSize: 17,
+                  child: RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                        fontWeight: FontWeight.w300,
+                        color: Colors.black,
+                        fontSize: 17,
+                      ),
+                      children: [
+                        TextSpan(text: "By continuing you agree our "),
+                        TextSpan(
+                          text: "Terms of Service",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 98, 175, 143),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        TextSpan(text: " and "),
+                        TextSpan(
+                          text: "Privacy",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 98, 175, 143),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        TextSpan(text: "."),
+                      ],
                     ),
                   ),
                 ),
@@ -138,7 +162,7 @@ class _LogInState extends State<LogIn> {
                       ),
                       onPressed: onLogInClicked,
                       child: Text(
-                        "Log In",
+                        "Sign Up",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
@@ -149,7 +173,7 @@ class _LogInState extends State<LogIn> {
                 ),
               ),
               GestureDetector(
-                onTap: onSignUpClicked,
+                onTap: onLogInClicked,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 100),
                   child: Row(
@@ -160,7 +184,7 @@ class _LogInState extends State<LogIn> {
                         child: Align(
                           alignment: Alignment.center,
                           child: Text(
-                            "Don't have an account?",
+                            "Already have an account?",
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Colors.black,
@@ -173,7 +197,7 @@ class _LogInState extends State<LogIn> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 30),
                         child: Text(
-                          "Signup",
+                          "Login",
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: const Color.fromARGB(255, 98, 175, 143),
@@ -199,10 +223,11 @@ class _LogInState extends State<LogIn> {
   }
 
   void onLogInClicked() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ProductDetail()),
-    );
+    Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn()));
+  }
+
+  Widget gotoLogIn(BuildContext context) {
+    return LogIn();
   }
 
   void onSignUpClicked() {
@@ -211,9 +236,5 @@ class _LogInState extends State<LogIn> {
 
   Widget gotoSignUp(BuildContext context) {
     return SignUp();
-  }
-
-  Widget gotoProductDetail(BuildContext context) {
-    return ProductDetail();
   }
 }
